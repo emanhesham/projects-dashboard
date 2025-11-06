@@ -112,11 +112,11 @@ export async function POST
 
   allProjects[projectIndex] = {
     ...allProjects[projectIndex],
-    name: body.name ?? '',
-    description: body.description ?? '',
-    startDate: body.startDate ?? '',
-    endDate: body.endDate ?? '',
-    status: body.status ?? '',
+    // name: body.name ?? '',
+    // description: body.description ?? '',
+    // startDate: body.startDate ?? '',
+    // endDate: body.endDate ?? '',
+    // status: body.status ?? '',
     progress: Number(body.progress) ?? 0,
     budget: Number(body.budget) ?? 0,
   };

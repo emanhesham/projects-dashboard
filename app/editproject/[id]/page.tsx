@@ -8,7 +8,7 @@ export default async function EditProjectPage({
   const { id } = await params;
   const projectId = Number(id);
 
-  const res = await fetch(`http://localhost:3000/api/project/${projectId}`, {
+  const res = await fetch(`/api/project/${projectId}`, {
     cache: 'no-store',
   });
 

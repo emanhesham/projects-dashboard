@@ -6,7 +6,7 @@ export default async function ProjectDetailsPage({
   const { id } = await params; // ✅ unwrap the Promise
   const projectId = Number(id);
 
-  const res = await fetch(`http://localhost:3000/api/project/${projectId}`, {
+  const res = await fetch(`/api/project/${projectId}`, {
     cache: 'no-store',
   });
 

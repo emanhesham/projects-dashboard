@@ -6,9 +6,12 @@ export default async function ProjectDetailsPage({
   const { id } = await params; // ✅ unwrap the Promise
   const projectId = Number(id);
 
-  const res = await fetch(`/api/project/${projectId}`, {
-    cache: 'no-store',
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/project/${projectId}`,
+    {
+      cache: 'no-store',
+    }
+  );
 
   if (!res.ok) {
     return (

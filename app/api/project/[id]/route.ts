@@ -82,45 +82,44 @@ export async function DELETE(
   return NextResponse.json({ message: "Project deleted successfully" });
 }
 
-export async function POST
-(  request: Request,
+export async function POST(
+  request: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-
-  const { id } = await context.params; // ← هنا نعمل await
+  const { id } = await context.params;
   const projectId = Number(id);
 
-
   if (isNaN(projectId)) {
-
-    return  NextResponse.json({ error: "Invalid project ID"  }, { status: 400 } ) ;
+    return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });
   }
 
-  
-
-  const projectIndex = allProjects.findIndex(p => p.id === projectId);
+  const projectIndex = allProjects.findIndex((p) => p.id === projectId);
 
   if (projectIndex === -1) {
-    return NextResponse.json({ message: 'Project not found' }, { status: 404 });
+    return NextResponse.json({ message: "Project not found" }, { status: 404 });
   }
 
-
-  
-  // هنا بدل request.json() نستخدم request.formData()
   const formData = await request.formData();
-  const body = Object.fromEntries(formData.entries());
+
+  // نحول كل القيم إلى string قبل حفظها
+  const name = formData.get("name")?.toString() || "";
+  const description = formData.get("description")?.toString() || "";
+  const startDate = formData.get("startDate")?.toString() || "";
+  const endDate = formData.get("endDate")?.toString() || "";
+  const status = formData.get("status")?.toString() || "";
+  const progress = Number(formData.get("progress")) || 0;
+  const budget = Number(formData.get("budget")) || 0;
 
   allProjects[projectIndex] = {
     ...allProjects[projectIndex],
-    // name: body.name ?? '',
-    // description: body.description ?? '',
-    // startDate: body.startDate ?? '',
-    // endDate: body.endDate ?? '',
-    // status: body.status ?? '',
-    progress: Number(body.progress) ?? 0,
-    budget: Number(body.budget) ?? 0,
+    name,
+    description,
+    startDate,
+    endDate,
+    status,
+    progress,
+    budget,
   };
 
   return NextResponse.json(allProjects[projectIndex]);
-
 }

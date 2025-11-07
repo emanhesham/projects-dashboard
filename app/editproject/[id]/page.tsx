@@ -7,12 +7,9 @@ export default async function EditProjectPage({
 }) {
   const { id } = await params;
   const projectId = Number(id);
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/project/${projectId}`,
-    {
-      cache: 'no-store',
-    }
-  );
+  const res = await fetch(`/api/project/${projectId}`, {
+    cache: 'no-store',
+  });
 
   if (!res.ok) {
     return (

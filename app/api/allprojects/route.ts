@@ -1,7 +1,7 @@
 //بجيب كل المشااريع api
 import { NextResponse } from 'next/server';
 // import { allProjects } from "@/app/api/_data/projects";
-export let allProjects = [
+ const allProjects = [
   {
     id: 1,
     name: "Portfolio Website",

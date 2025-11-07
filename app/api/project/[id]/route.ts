@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 // import { allProjects } from "@/app/api/_data/projects";
-export let allProjects = [
+ const allProjects = [
   {
     id: 1,
     name: "Portfolio Website",
@@ -76,7 +76,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });
   }
 
-  allProjects.filter((p) => p.id !== projectId);
+   allProjects.filter((p) => p.id !== projectId);
 
 
   return NextResponse.json({ message: "Project deleted successfully" });

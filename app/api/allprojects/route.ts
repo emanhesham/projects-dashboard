@@ -1,12 +1,6 @@
 //بجيب كل المشااريع api
 import { NextResponse } from 'next/server';
-
-const allProjects = [
-  { id: 1, name: 'Portfolio Website', owner: ' user Eman', role: 'user' },
-  { id: 2, name: 'ecommerce Website', owner: ' user Eman', role: 'user' },
-  { id: 3, name: 'React Dashboard', owner: 'Admin', role: 'admin' },
-  { id: 4, name: 'E-commerce App', owner: 'Admin', role: 'admin' },
-];
+import { allProjects } from "@/app/api/_data/projects";
 
 export async function 
 GET(request: Request) {

@@ -1,5 +1,6 @@
 import Link from 'next/link';
-
+// import { useRouter } from 'next/router';
+// const router = useRouter();
 export default async function EditProjectPage({
   params,
 }: {
@@ -28,6 +29,7 @@ export default async function EditProjectPage({
 
       <form
         action={`/api/project/${projectId}`}
+        // action={`/dashboard`}
         method="POST"
         className="space-y-4"
       >
@@ -109,6 +111,7 @@ export default async function EditProjectPage({
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
+            <link rel="stylesheet" href="/dashboard" />
             Save
           </button>
 

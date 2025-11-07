@@ -1,44 +1,5 @@
 import { NextResponse } from "next/server";
-
-let allProjects = [
-  {
-    id: 1,
-    name: "Portfolio Website",
-    owner: "Eman",
-    role: "user",
-    description: "My personal portfolio",
-    status: "In Progress",
-    startDate: "2025-10-01",
-    endDate: "2025-11-30",
-    progress: 60,
-    budget: 1000,
-  },
-  {
-    id: 2,
-    name: "React Dashboard",
-    owner: "Admin",
-    role: "admin",
-    description: "Dashboard for managing users",
-    status: "Completed",
-    startDate: "2025-08-15",
-    endDate: "2025-09-30",
-    progress: 100,
-    budget: 2000,
-  },
-  {
-    id: 3,
-    name: "E-commerce App",
-    owner: "Admin",
-    role: "admin",
-    description: "Online store app",
-    status: "Not Started",
-    startDate: "2025-11-05",
-    endDate: "2026-01-15",
-    progress: 0,
-    budget: 5000,
-  },
-];
-
+import { allProjects } from "@/app/api/_data/projects";
 
 export async function GET(
   request: Request,
@@ -77,7 +38,8 @@ export async function DELETE(
     return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });
   }
 
-  allProjects = allProjects.filter((p) => p.id !== projectId);
+  allProjects.filter((p) => p.id !== projectId);
+
 
   return NextResponse.json({ message: "Project deleted successfully" });
 }
@@ -120,6 +82,6 @@ export async function POST(
     progress,
     budget,
   };
+  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`);
 
-  return NextResponse.json(allProjects[projectIndex]);
 }

@@ -22,7 +22,11 @@ export default function DashboardPage() {
 
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`/api/allprojects?role=${userRole || 'user'}`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SITE_URL}/api/allprojects?role=${userRole || 'user'}`,
+          { cache: 'no-store' }
+        );
+
         const data = await res.json();
         setProjects(data);
       } catch (err) {
@@ -41,16 +45,16 @@ export default function DashboardPage() {
     router.push('/login');
   };
 
-  const handleEdit = async (id: number) => {
-    console.log('hi ', id);
-  };
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this project? ' + id)) return;
 
     try {
-      const res = await fetch(`/api/project/${id}`, {
-        method: 'DELETE',
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/project/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (!res.ok) throw new Error('Failed to delete');
 
@@ -79,7 +83,7 @@ export default function DashboardPage() {
         Welcome, <span className="font-semibold">{role}</span>
       </h2>
 
-      <ul className="">
+      <ul>
         {projects.map((project: any) => (
           <li
             key={project.id}

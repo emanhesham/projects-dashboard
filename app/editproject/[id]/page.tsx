@@ -1,6 +1,5 @@
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
-// const router = useRouter();
+
 export default async function EditProjectPage({
   params,
 }: {

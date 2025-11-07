@@ -1,5 +1,43 @@
 import { NextResponse } from "next/server";
-import { allProjects } from "@/app/api/_data/projects";
+// import { allProjects } from "@/app/api/_data/projects";
+export let allProjects = [
+  {
+    id: 1,
+    name: "Portfolio Website",
+    owner: "Eman",
+    role: "user",
+    description: "My personal portfolio",
+    status: "In Progress",
+    startDate: "2025-10-01",
+    endDate: "2025-11-30",
+    progress: 60,
+    budget: 1000,
+  },
+  {
+    id: 2,
+    name: "React Dashboard",
+    owner: "Admin",
+    role: "admin",
+    description: "Dashboard for managing users",
+    status: "Completed",
+    startDate: "2025-08-15",
+    endDate: "2025-09-30",
+    progress: 100,
+    budget: 2000,
+  },
+  {
+    id: 3,
+    name: "E-commerce App",
+    owner: "Admin",
+    role: "admin",
+    description: "Online store app",
+    status: "Not Started",
+    startDate: "2025-11-05",
+    endDate: "2026-01-15",
+    progress: 0,
+    budget: 5000,
+  },
+];
 
 export async function GET(
   request: Request,

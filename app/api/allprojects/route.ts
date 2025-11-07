@@ -1,7 +1,5 @@
-//بجيب كل المشااريع api
 import { NextResponse } from 'next/server';
-// import { allProjects } from "@/app/api/_data/projects";
- const allProjects = [
+ let allProjects = [
   {
     id: 1,
     name: "Portfolio Website",

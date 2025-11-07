@@ -23,7 +23,7 @@ export default function DashboardPage() {
     const fetchProjects = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SITE_URL}/api/allprojects?role=${userRole || 'user'}`,
+          `/api/allprojects?role=${userRole || 'user'}`,
           { cache: 'no-store' }
         );
 

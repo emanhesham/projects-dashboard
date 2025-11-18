@@ -1,41 +1,71 @@
-import Link from 'next/link';
+'use client';
 
-export default async function EditProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const projectId = Number(id);
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/project/${projectId}`,
-    {
-      cache: 'no-store',
+import { useEffect, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+
+export default function EditProjectPage() {
+  const router = useRouter();
+  const { id } = useParams(); // ← أهم حاجة هنا
+  const [project, setProject] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  console.log('Page ID:', id);
+
+  // 🟦 Fetch project
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProject = async () => {
+      try {
+        const res = await fetch(`http://localhost:4000/projects/${id}`);
+        if (!res.ok) throw new Error('Not found');
+
+        const data = await res.json();
+        setProject(data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  // 🟩 Update project
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const updated = Object.fromEntries(form.entries());
+
+    try {
+      const res = await fetch(`http://localhost:4000/projects/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated),
+      });
+
+      if (!res.ok) throw new Error('Update failed');
+
+      alert('Project updated successfully!');
+      router.push('/dashboard');
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong');
     }
-  );
+  };
 
-  if (!res.ok) {
-    return (
-      <h1 className="p-6 text-red-600 text-xl font-bold">Project not found</h1>
-    );
-  }
-
-  const project = await res.json();
+  if (loading) return <p className="p-6">Loading...</p>;
+  if (!project) return <p className="p-6 text-red-500">Project not found</p>;
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Edit {project.name}</h1>
 
-      <form
-        action={`/api/project/${projectId}`}
-        // action={`/dashboard`}
-        method="POST"
-        className="space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block mb-1">Name</label>
           <input
-            type="text"
             name="name"
             defaultValue={project.name}
             className="border px-3 py-2 rounded w-full"
@@ -75,7 +105,6 @@ export default async function EditProjectPage({
         <div>
           <label className="block mb-1">Status</label>
           <input
-            type="text"
             name="status"
             defaultValue={project.status}
             className="border px-3 py-2 rounded w-full"
@@ -104,22 +133,30 @@ export default async function EditProjectPage({
             className="border px-3 py-2 rounded w-full"
           />
         </div>
-
+        <div>
+          <label className="block mb-1">Owner</label>
+          <input
+            type="text"
+            name="Owner"
+            defaultValue={project.owner}
+            className="border px-3 py-2 rounded w-full"
+          />
+        </div>
         <div className="flex gap-4 mt-4">
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
-            <link rel="stylesheet" href="/dashboard" />
             Save
           </button>
 
-          <Link
-            href="/dashboard"
+          <button
+            type="button"
+            onClick={() => router.push('/dashboard')}
             className="bg-gray-600 text-white px-4 py-2 rounded"
           >
             Cancel
-          </Link>
+          </button>
         </div>
       </form>
     </div>

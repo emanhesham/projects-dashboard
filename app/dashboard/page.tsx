@@ -22,11 +22,7 @@ export default function DashboardPage() {
 
     const fetchProjects = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SITE_URL}/api/allprojects?role=${userRole || 'user'}`,
-          { cache: 'no-store' }
-        );
-
+        const res = await fetch(`http://localhost:4000/projects`);
         const data = await res.json();
         setProjects(data);
       } catch (err) {
@@ -49,12 +45,9 @@ export default function DashboardPage() {
     if (!confirm('Are you sure you want to delete this project? ' + id)) return;
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/project/${id}`,
-        {
-          method: 'DELETE',
-        }
-      );
+      const res = await fetch(`http://localhost:4000/projects/${id}`, {
+        method: 'DELETE',
+      });
 
       if (!res.ok) throw new Error('Failed to delete');
 

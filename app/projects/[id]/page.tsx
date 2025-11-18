@@ -1,25 +1,38 @@
-export default async function ProjectDetailsPage({
-  params,
-}: {
-  params: Promise<{ id: string }>; // params is a Promise
-}) {
-  const { id } = await params; // ✅ unwrap the Promise
-  const projectId = Number(id);
+'use client';
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/project/${projectId}`,
-    {
-      cache: 'no-store',
-    }
-  );
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 
-  if (!res.ok) {
-    return (
-      <h1 className="p-6 text-red-600 text-xl font-bold">Project not found</h1>
-    );
-  }
+export default function ProjectDetailsPage() {
+  const router = useRouter();
+  const { id } = useParams();
+  const [project, setProject] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const project = await res.json();
+  console.log('Page ID:', id);
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProject = async () => {
+      try {
+        const res = await fetch(`http://localhost:4000/projects/${id}`);
+        if (!res.ok) throw new Error('Project not found');
+
+        const data = await res.json();
+        setProject(data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  if (loading) return <p className="p-6">Loading...</p>;
+  if (!project) return <p className="p-6 text-red-500">Project not found</p>;
 
   return (
     <div className="p-6">
@@ -28,7 +41,7 @@ export default async function ProjectDetailsPage({
 
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-200">
-          <thead className="">
+          <thead>
             <tr>
               <th className="py-2 px-4 border-b text-left">Name</th>
               <th className="py-2 px-4 border-b text-left">Status</th>
@@ -40,7 +53,7 @@ export default async function ProjectDetailsPage({
             </tr>
           </thead>
           <tbody>
-            <tr className="">
+            <tr>
               <td className="py-2 px-4 border-b">{project.name}</td>
               <td className="py-2 px-4 border-b">{project.status || 'N/A'}</td>
               <td className="py-2 px-4 border-b">
@@ -48,15 +61,26 @@ export default async function ProjectDetailsPage({
               </td>
               <td className="py-2 px-4 border-b">{project.endDate || 'N/A'}</td>
               <td className="py-2 px-4 border-b">
-                {project.progress ? `${project.progress}%` : 'N/A'}
+                {project.progress !== undefined
+                  ? `${project.progress}%`
+                  : 'N/A'}
               </td>
               <td className="py-2 px-4 border-b">
-                {project.budget ? `$${project.budget}` : 'N/A'}
+                {project.budget !== undefined ? `$${project.budget}` : 'N/A'}
               </td>
               <td className="py-2 px-4 border-b">{project.owner}</td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div className="mt-4">
+        <button
+          onClick={() => router.push('/dashboard')}
+          className="bg-gray-600 text-white px-4 py-2 rounded"
+        >
+          Back to Dashboard
+        </button>
       </div>
     </div>
   );

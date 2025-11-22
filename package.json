@@ -8,11 +8,11 @@
     "start": "next start",
     "format": "prettier --write .",
     "api": "json-server --watch fake-api/db.json --port 4000"
-
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.10.1",
+    "jose": "^6.1.2",
     "jsonwebtoken": "^9.0.2",
     "next": "16.0.1",
     "react": "19.2.0",

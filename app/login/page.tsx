@@ -53,7 +53,6 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center h-screen gap-3">
       <h1 className="text-2xl font-bold">Login</h1>
 
-   
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-3 w-64"

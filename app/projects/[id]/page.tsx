@@ -16,7 +16,7 @@ export default function ProjectDetailsPage() {
 
     const fetchProject = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/projects/${id}`);
+        const res = await fetch(`/api/projects/${id}`);
         if (!res.ok) throw new Error('Project not found');
 
         const data = await res.json();

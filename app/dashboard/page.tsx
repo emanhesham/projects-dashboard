@@ -22,7 +22,8 @@ export default function DashboardPage() {
 
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/projects`);
+    const res = await fetch(`/api/projects`, { cache: "no-store" });
+;
         const data = await res.json();
         setProjects(data);
       } catch (err) {
@@ -45,7 +46,7 @@ export default function DashboardPage() {
     if (!confirm('Are you sure you want to delete this project? ' + id)) return;
 
     try {
-      const res = await fetch(`http://localhost:4000/projects/${id}`, {
+      const res = await fetch(`/api/projects/${id}`, {
         method: 'DELETE',
       });
 

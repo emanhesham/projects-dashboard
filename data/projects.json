@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Portfolio Website \\\\",
+    "description": "My personal portfolio using Next.js",
+    "startDate": "2025-01-10",
+    "endDate": "2025-03-01",
+    "status": "In Progress",
+    "progress": "60",
+    "budget": "1200",
+    "owner": "salwa ali",
+    "id": "1",
+    "Owner": "salwa ali"
+  },
+  {
+    "name": "React Dashboard",
+    "description": "Admin dashboard project with full CRUD",
+    "startDate": "2025-02-01",
+    "endDate": "2025-03-15",
+    "status": "Completed",
+    "progress": "68",
+    "budget": "2000",
+    "owner": "eman",
+    "id": "2"
+  },
+  {
+    "name": "E-commerce Apps",
+    "description": "Online shop with cart and checkout",
+    "startDate": "2025-03-01",
+    "endDate": "2025-06-01",
+    "status": "Pending",
+    "progress": "10",
+    "budget": "5000",
+    "id": "3",
+    "owner": "huda"
+  }
+]
